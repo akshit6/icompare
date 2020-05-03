@@ -84,14 +84,19 @@ def products():
 def product(p_name):
 	global name ,price, description, a_name, a_price, a_description
 	flip_data = flipkart_scraping(name)
-	name = flip_data["name"]
-	price = flip_data["price"]
-	description = flip_data["description"]
+	if(flip_data):
+		name = flip_data["name"]
+		price = flip_data["price"]
+		description = flip_data["description"]
+	else:
+		name = "Not found"
 	amazon_data = amazon_scrapping(name)
 	if(amazon_data):
 		a_name = amazon_data["name"]
 		a_price = amazon_data["price"]
 		a_description = amazon_data["description"]
+	else:
+		name = "Not found"
 	return render_template('products_final.html',flip_name = name,flip_price=price,flip_des=description ,amazon_name = a_name,amazon_price=a_price,amazon_des=a_description )
 
 
